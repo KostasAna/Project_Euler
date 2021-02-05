@@ -11,7 +11,6 @@ def sum_div_3_5(x):
         if i % 3 == 0 or i % 5 == 0:
             my_sum += i
 
-    print(f'The sum of all the numbers up to {x:d} divisible by 3 and 5 is {my_sum:d}')
     return my_sum
 
 
@@ -19,7 +18,7 @@ def sum_div_3_5(x):
 
 
 def fib_even_sum(x):
-    """This function takes all the even_valued Fibonacci numbers up to x-ith
+    """This function takes all the even-valued Fibonacci numbers up to x-ith
     number of the sequence and adds the up. It has a limit of 4 million"""
 
     a = [1]
@@ -34,27 +33,31 @@ def fib_even_sum(x):
             even.append(result)
 
     k = sum(even)
-    print(f'The sum of the even-valued Fibonacci numbers smaller than 4 million is {k:d}')
+
     return k
 
 
 # https://projecteuler.net/problem=3
 
 
-def largest_factor(x):
-    """This function takes a number and returns its largest prime factor"""
+def prime_factors(x):
+    """This function takes a number and returns a list of its prime factors"""
 
     p_factors = []
     y = round(x ** 0.5 + 1)  # need to check only up to square root of x, not up to x
-    z = x  # just to store the initial value of x for the print statement
 
-    for i in range(2, y, 1):
+    for i in range(2, y+1, 1):
         while x % i == 0:
             p_factors.append(i)
             x = x / i
 
-    print(f'The largest prime factor of {z:d} is {int(p_factors[-1]):d}')
-    return p_factors[-1]
+    if x != 1:  # if there is factor relatively big to others, it will be bigger than the square root of x
+        for j in range(y, int(x+1), 1):  # therefore, we make sure it is added to the list of factors
+            while x % j == 0:
+                p_factors.append(j)
+                x = x / j
+
+    return p_factors
 
 
 # https://projecteuler.net/problem=4
@@ -73,6 +76,19 @@ def max_pal_num(x, y):
             else:
                 pal_num.append(i * j)
 
-    print(f'The largest palindromic number made from a product\n'
-          f' of numbers between {x:d} and {y:d} is {max(pal_num):d}')
     return max(pal_num)
+
+
+# https://projecteuler.net/problem=5
+
+
+def div_mul(x):
+    """This function takes finds the smallest positive number that
+    is evenly divisible by all of the numbers from 1 to x"""
+
+    product = 1
+    for i in range(2, x, 1):
+        if product % i != 0:
+            product *= prime_factors(i)[-1]  # using the function of prime factors from problem 3
+
+    return product
