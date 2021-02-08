@@ -18,16 +18,18 @@ def sum_div_3_5(x):
 
 
 def fib_even_sum(x):
-    """This function takes all the even-valued Fibonacci numbers up to x-ith
-    number of the sequence and adds the up. It has a limit of 4 million"""
+    """This function takes all the even valued Fibonacci numbers
+     smaller than x and adds them up"""
 
-    a = [1]
+    i = 0
+    a = [1, 1]
     even = []
 
-    for i in range(0, x, 1):
+    while True:
+        i += 1
         result = a[i] + a[i - 1]
         a.append(result)
-        if result >= 4000000:
+        if result >= x:
             break
         if result % 2 == 0:
             even.append(result)
@@ -41,18 +43,19 @@ def fib_even_sum(x):
 
 
 def prime_factors(x):
-    """This function takes a number and returns a list of its prime factors"""
+    """This function lists all the prime factors of the number x.
+    If it is prime it returns only itself"""
 
     p_factors = []
     y = round(x ** 0.5 + 1)  # need to check only up to square root of x, not up to x
 
-    for i in range(2, y+1, 1):
+    for i in range(2, y + 1, 1):
         while x % i == 0:
             p_factors.append(i)
             x = x / i
 
     if x != 1:  # if there is factor relatively big to others, it will be bigger than the square root of x
-        for j in range(y, int(x+1), 1):  # therefore, we make sure it is added to the list of factors
+        for j in range(y, int(x + 1), 1):  # therefore, we make sure it is added to the list of factors
             while x % j == 0:
                 p_factors.append(j)
                 x = x / j
@@ -83,12 +86,50 @@ def max_pal_num(x, y):
 
 
 def div_mul(x):
-    """This function takes finds the smallest positive number that
-    is evenly divisible by all of the numbers from 1 to x"""
+    """This function finds the smallest positive number that
+    is evenly divisible by all of the numbers up to x"""
 
     product = 1
+
     for i in range(2, x, 1):
         if product % i != 0:
             product *= prime_factors(i)[-1]  # using the function of prime factors from problem 3
 
     return product
+
+
+# https://projecteuler.net/problem=6
+
+
+def sum_sum(x):
+    """This function calculates the difference between the sum of the squares
+    of the first x natural numbers and the square of the sum"""
+
+    ss = 0
+    s = 0
+
+    for i in range(1, x + 1, 1):
+        s += i
+        ss += i ** 2
+
+    my_sum = s ** 2 - ss
+
+    return my_sum
+
+
+# https://projecteuler.net/problem=7
+
+def primes(x):
+    """This function lists the first x primes"""
+
+    p_list = [2]  # the first prime is 2
+    i = 2
+
+    while True:
+        i += 1
+        if prime_factors(i)[0] == i:  # using the function of prime factors from problem 3
+            p_list.append(i)
+            if len(p_list) == x:
+                break
+
+    return p_list
