@@ -1,7 +1,7 @@
 # https://projecteuler.net/problem=1
 
 
-def sum_div_3_5(x):
+def sum_div_3_5(x: int) -> int:
     """This function takes all the numbers up to x
     that are divisible by 3 and 5 and it adds them up"""
 
@@ -17,7 +17,7 @@ def sum_div_3_5(x):
 # https://projecteuler.net/problem=2
 
 
-def fib_even_sum(x):
+def fib_even_sum(x: int) -> int:
     """This function takes all the even valued Fibonacci numbers
      smaller than x and adds them up"""
 
@@ -42,7 +42,7 @@ def fib_even_sum(x):
 # https://projecteuler.net/problem=3
 
 
-def prime_factors(x):
+def prime_factors(x: int) -> list:
     """This function lists all the prime factors of the number x.
     If it is prime it returns only itself"""
 
@@ -66,7 +66,7 @@ def prime_factors(x):
 # https://projecteuler.net/problem=4
 
 
-def max_pal_num(x, y):
+def max_pal_num(x, y: int) -> int:
     """This function takes a range of values (x, y) in which it finds
     the largest palindromic number of all the products in that range"""
 
@@ -85,7 +85,7 @@ def max_pal_num(x, y):
 # https://projecteuler.net/problem=5
 
 
-def div_mul(x):
+def div_mul(x: int) -> int:
     """This function finds the smallest positive number that
     is evenly divisible by all of the numbers up to x"""
 
@@ -101,7 +101,7 @@ def div_mul(x):
 # https://projecteuler.net/problem=6
 
 
-def sum_sum(x):
+def sum_sum(x: int) -> int:
     """This function calculates the difference between the sum of the squares
     of the first x natural numbers and the square of the sum"""
 
@@ -119,7 +119,7 @@ def sum_sum(x):
 
 # https://projecteuler.net/problem=7
 
-def primes(x):
+def primes(x: int) -> list:
     """This function lists the first x primes"""
 
     p_list = [2]  # the first prime is 2
