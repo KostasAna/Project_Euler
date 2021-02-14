@@ -7,9 +7,9 @@ def sum_div_3_5(x: int) -> int:
 
     my_sum = 0
 
-    for i in range(1, x, 1):
-        if i % 3 == 0 or i % 5 == 0:
-            my_sum += i
+    for num in range(x):
+        if num % 3 == 0 or num % 5 == 0:
+            my_sum += num
 
     return my_sum
 
@@ -22,7 +22,7 @@ def fib_even_sum(x: int) -> int:
      smaller than x and adds them up"""
 
     i = 0
-    a = [1, 1]
+    a = [1, 1]  # to start the Fibonacci series
     even = []
 
     while True:
@@ -49,13 +49,13 @@ def prime_factors(x: int) -> list:
     p_factors = []
     y = round(x ** 0.5 + 1)  # need to check only up to square root of x, not up to x
 
-    for i in range(2, y + 1, 1):
+    for i in range(2, y + 1):
         while x % i == 0:
             p_factors.append(i)
             x = x / i
 
     if x != 1:  # if there is factor relatively big to others, it will be bigger than the square root of x
-        for j in range(y, int(x + 1), 1):  # therefore, we make sure it is added to the list of factors
+        for j in range(y, int(x + 1)):  # therefore, we make sure it is added to the list of factors
             while x % j == 0:
                 p_factors.append(j)
                 x = x / j
@@ -66,14 +66,14 @@ def prime_factors(x: int) -> list:
 # https://projecteuler.net/problem=4
 
 
-def max_pal_num(x, y: int) -> int:
+def max_pal_num(x: int, y: int) -> int:
     """This function takes a range of values (x, y) in which it finds
     the largest palindromic number of all the products in that range"""
 
     pal_num = []
 
-    for i in range(x, y, 1):
-        for j in range(x, y, 1):
+    for i in range(x, y):
+        for j in range(x, y):
             if str(i * j) != str(i * j)[::-1]:
                 continue
             else:
@@ -91,9 +91,9 @@ def div_mul(x: int) -> int:
 
     product = 1
 
-    for i in range(2, x, 1):
-        if product % i != 0:
-            product *= prime_factors(i)[-1]  # using the function of prime factors from problem 3
+    for num in range(2, x):
+        if product % num != 0:
+            product *= prime_factors(num)[-1]  # using the function of prime factors from problem 3
 
     return product
 
@@ -108,9 +108,9 @@ def sum_sum(x: int) -> int:
     ss = 0
     s = 0
 
-    for i in range(1, x + 1, 1):
-        s += i
-        ss += i ** 2
+    for num in range(x + 1):
+        s += num
+        ss += num ** 2
 
     my_sum = s ** 2 - ss
 
@@ -133,3 +133,39 @@ def primes(x: int) -> list:
                 break
 
     return p_list
+
+
+# https://projecteuler.net/problem=8
+
+
+def prod(x: int or str) -> int:  # This function is needed within the next one
+    """This function multiplies all digits of a number """
+
+    product = 1
+
+    for i in str(x):
+        product *= int(i)
+
+    return product
+
+
+def seq_prod(x, y):
+    """This function takes all the y adjacent digits of x and
+    returns a dictionary with its products"""
+
+    y_digits = []  # all the adjacent numbers
+    products = []  # and their products
+
+    if len(str(x)) <= y:  # no point in that case so just return empty
+        return {'None': 0}
+
+    else:
+        for digit in range(len(str(x)) - y + 1):
+            y_digits.append(str(x)[digit: digit + y])
+
+        for adjacent in y_digits:
+            products.append(prod(adjacent))  # using the function created above
+
+        d = dict(zip(y_digits, products))
+
+    return d
