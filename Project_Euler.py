@@ -1,14 +1,30 @@
+# create a timer decorator
+import time
+
+
+def timer(function):
+    """This decorator is used if I need to check how long it takes a function to run"""
+
+    def wrapper(*args, **kwargs):
+        time_start = time.time()
+        outcome = function(*args, **kwargs)
+        total_time = time.time() - time_start
+        print(f'Total time needed: {total_time:f}')
+        return outcome
+
+    return wrapper
+
 # https://projecteuler.net/problem=1
 
 
-def sum_div_3_5(x: int) -> int:
+def sum_div(x: int, *args) -> int:
     """This function takes all the numbers up to x
-    that are divisible by 3 and 5 and it adds them up"""
+    that are divisible by *args and it adds them up"""
 
     my_sum = 0
 
     for num in range(x):
-        if num % 3 == 0 or num % 5 == 0:
+        if any(num % i == 0 for i in args):
             my_sum += num
 
     return my_sum
@@ -47,18 +63,16 @@ def prime_factors(x: int) -> list:
     If it is prime it returns only itself"""
 
     p_factors = []
-    y = round(x ** 0.5 + 1)  # need to check only up to square root of x, not up to x
 
-    for i in range(2, y + 1):
+    for i in range(2, round((x + 1) / 2)):
         while x % i == 0:
             p_factors.append(i)
             x = x / i
+        if x == 1:
+            break
 
-    if x != 1:  # if there is factor relatively big to others, it will be bigger than the square root of x
-        for j in range(y, int(x + 1)):  # therefore, we make sure it is added to the list of factors
-            while x % j == 0:
-                p_factors.append(j)
-                x = x / j
+    if x != 1:  # in case it is prime
+        p_factors.append(x)
 
     return p_factors
 
@@ -118,6 +132,7 @@ def sum_sum(x: int) -> int:
 
 
 # https://projecteuler.net/problem=7
+
 
 def primes(x: int) -> list:
     """This function lists the first x primes"""
