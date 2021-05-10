@@ -64,7 +64,7 @@ def prime_factors(x: int) -> list:
 
     p_factors = []
 
-    for i in range(2, round((x + 1) / 2)):
+    for i in range(2, round((x + 2) / 2)):
         while x % i == 0:
             p_factors.append(i)
             x = x / i
@@ -134,18 +134,30 @@ def sum_sum(x: int) -> int:
 # https://projecteuler.net/problem=7
 
 
+def prime_check(x: int) -> int:
+    """This function returns True if the number x is prime and False otherwise"""
+
+    if x <= 1:
+        return False
+    if x == 2:
+        return True
+    for i in range(2, round(x ** 0.5 + 1)):
+        if x % i == 0:
+            return False
+
+    return True
+
+
 def primes(x: int) -> list:
     """This function lists the first x primes"""
 
     p_list = [2]  # the first prime is 2
     i = 2
 
-    while True:
+    while len(p_list) < x:
         i += 1
-        if prime_factors(i)[0] == i:  # using the function of prime factors from problem 3
+        if prime_check(i) == True:
             p_list.append(i)
-            if len(p_list) == x:
-                break
 
     return p_list
 
@@ -184,3 +196,22 @@ def seq_prod(x, y):
         d = dict(zip(y_digits, products))
 
     return d
+
+
+# https://projecteuler.net/problem=10
+
+
+def primes_sum(x: int) -> int:
+    """This function lists the first x primes"""
+
+    p_sum = 2  # the first prime is 2
+    i = 2
+
+    while i < x:
+        i += 1
+        if prime_check(i) == True:  # using the function of prime factors from problem 3
+            p_sum += i
+        else:
+            continue
+
+    return p_sum

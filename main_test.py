@@ -19,7 +19,7 @@ print(f'The smallest positive number that is evenly divisible by all of the numb
 print(f'The square of the sums minus the sum of squares up to 100 is {sum_sum(100)}.')
 
 # https://projecteuler.net/problem=7   104743
-print(f'The 10001st prime is {primes(10002)[-1]}.')  # Slow
+print(f'The 10001st prime is {primes(10002)[-1]}.')
 
 # https://projecteuler.net/problem=8   23514624000
 number = int("""
@@ -44,4 +44,7 @@ number = int("""
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450
 """.replace("\n", ""))
-print(f'The greatest product of 13 adjacent digits from this large number is {max(seq_prod(number, 13).values()):d}')
+print(f'The greatest product of 13 adjacent digits from this large number is {max(seq_prod(number, 13).values()):d}.')
+
+# https://projecteuler.net/problem=8   142913828922   It takes about 10 seconds
+print(f'The sum of all primes below 2 million is {primes_sum(2*10**6)}.')
