@@ -198,18 +198,37 @@ def seq_prod(x, y):
     return d
 
 
+# https://projecteuler.net/problem=9
+
+
+"""This problem requires some maths beforehand. Constraints:
+(1) 0 < a < b < c ,  (2) a + b + c = 1000 ,  (3) a^2 + b^2 = c^2
+(2) & (3) => a^2 + b^2 = 10^6 + a^2 + b^2 - 2000*a -2000*b + 2*a*b
+<=> 0 = 5*10^5 - 1000(a + b) + ab <=> 0 = 5*10^5 + a(b - 1000) - 1000*b
+<=> 0 = a(b - 1000) - 1000(b - 500) <=> 5*10^5 = (b - 1000)(a - 1000) (4)
+(1) & (4) => 0 < a < b < 500 <=> -1000 < a - 1000 < b - 1000 < -500
+At this point is quite fast and easy to do an exhaustive search."""
+
+for i in range(505, 1000, 5):
+    for j in range(1000, 500, -10):
+        if i * j == 5 * 10 ** 5:
+            a = 1000 - j
+            b = 1000 - i
+            c = 1000 - a - b
+
+
 # https://projecteuler.net/problem=10
 
 
 def primes_sum(x: int) -> int:
-    """This function lists the first x primes"""
+    """This function adds all the primes below x"""
 
     p_sum = 2  # the first prime is 2
     i = 2
 
     while i < x:
         i += 1
-        if prime_check(i) == True:  # using the function of prime factors from problem 3
+        if prime_check(i) == True:  # using the function of prime factors from problem 7
             p_sum += i
         else:
             continue

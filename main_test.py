@@ -46,5 +46,11 @@ number = int("""
 """.replace("\n", ""))
 print(f'The greatest product of 13 adjacent digits from this large number is {max(seq_prod(number, 13).values()):d}.')
 
-# https://projecteuler.net/problem=8   142913828922   It takes about 10 seconds
-print(f'The sum of all primes below 2 million is {primes_sum(2*10**6)}.')
+# https://projecteuler.net/problem=9   31875000
+print(f'The product of a Pythagorean triplet, which add up to 1000, is {a * b * c}')
+
+# https://projecteuler.net/problem=10   142913828922   It takes about 10 seconds
+print(f'The sum of all primes below 2 million is {primes_sum(2 * 10 ** 6)}.')
+
+
+
