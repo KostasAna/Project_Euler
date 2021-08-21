@@ -3,7 +3,7 @@ import time
 
 
 def timer(function):
-    """This decorator is used if I need to check how long it takes a function to run"""
+    """This decorator is used to check how long it takes a function to run"""
 
     def wrapper(*args, **kwargs):
         time_start = time.time()
@@ -107,7 +107,7 @@ def div_mul(x: int) -> int:
 
     for num in range(2, x):
         if product % num != 0:
-            product *= prime_factors(num)[-1]  # using the function of prime factors from problem 3
+            product *= prime_factors(num)[-1]  # function from problem 3
 
     return product
 
@@ -135,7 +135,7 @@ def sum_sum(x: int) -> int:
 
 
 def prime_check(x: int) -> int:
-    """This function returns True if the number x is prime and False otherwise"""
+    """This function returns True if the number x is prime & False otherwise"""
 
     if x <= 1:
         return False
@@ -191,7 +191,7 @@ def seq_prod(x, y):
             y_digits.append(str(x)[digit: digit + y])
 
         for adjacent in y_digits:
-            products.append(prod(adjacent))  # using the function created above
+            products.append(prod(adjacent))  # function created above
 
         d = dict(zip(y_digits, products))
 
@@ -228,9 +228,47 @@ def primes_sum(x: int) -> int:
 
     while i < x:
         i += 1
-        if prime_check(i) == True:  # using the function of prime factors from problem 7
+        if prime_check(i) == True:  # function from problem 7
             p_sum += i
         else:
             continue
 
     return p_sum
+
+
+# https://projecteuler.net/problem=11
+
+def listing(x: str) -> list:
+    """This function takes a matrix in string type and
+    returns it as a list of lists"""
+
+    big_list = x.split('\n')
+    matrix = []
+
+    for line in big_list:
+        row = line.split(' ')
+        row = [int(number) for number in row]
+        matrix.append(row)
+
+    return matrix
+
+
+def products(m: list, n: int) -> int:
+    """This funcion takes a matrix and returns the greatest product
+    of n adjacent numbers in any direction"""
+
+    x = len(m)  # how many rows the matrix has
+    y = len(m[0])  # how many columns the matrix has
+
+    alln = []
+
+    for i in range(x):
+        for j in range(0, y-n+1):
+            alln.append(m[i][j]*m[i][j+1]*m[i][j+2]*m[i][j+3])
+            alln.append(m[j][i]*m[j+1][i]*m[j+2][i]*m[j+3][i])
+
+            if i <= (x-n): # diagonals
+                alln.append(m[i][j]*m[i+1][j+1]*m[i+2][j+2]*m[i+3][j+3])
+                alln.append(m[i][j+3]*m[i+1][j+2]*m[i+2][j+1]*m[i+3][j])
+
+    return max(alln)
