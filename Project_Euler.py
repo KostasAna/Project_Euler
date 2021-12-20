@@ -156,7 +156,7 @@ def primes(x: int) -> list:
 
     while len(p_list) < x:
         i += 1
-        if prime_check(i) == True:
+        if prime_check(i):
             p_list.append(i)
 
     return p_list
@@ -166,7 +166,7 @@ def primes(x: int) -> list:
 
 
 def prod(x: int or str) -> int:  # This function is needed within the next one
-    """This function multiplies all digits of a number """
+    """This function multiplies all digits of a number"""
 
     product = 1
 
@@ -228,7 +228,7 @@ def primes_sum(x: int) -> int:
 
     while i < x:
         i += 1
-        if prime_check(i) == True:  # function from problem 7
+        if prime_check(i):  # function from problem 7
             p_sum += i
         else:
             continue
@@ -267,8 +267,33 @@ def products(m: list, n: int) -> int:
             alln.append(m[i][j]*m[i][j+1]*m[i][j+2]*m[i][j+3])
             alln.append(m[j][i]*m[j+1][i]*m[j+2][i]*m[j+3][i])
 
-            if i <= (x-n): # diagonals
+            if i <= (x-n):  # diagonals
                 alln.append(m[i][j]*m[i+1][j+1]*m[i+2][j+2]*m[i+3][j+3])
                 alln.append(m[i][j+3]*m[i+1][j+2]*m[i+2][j+1]*m[i+3][j])
 
     return max(alln)
+
+
+# https://projecteuler.net/problem=12
+
+def divisors(n: int) -> int:
+    """This function returns the list of all the factors of a number"""
+
+    divs = [i for i in range(1, int(round(n ** 0.5 + 1, 0))) if n % i == 0]
+    divs = divs + [int(n / d) for d in divs[::-1] if n % d == 0]
+
+    return divs
+
+
+def max_primes(d: int, f: callable) -> int:
+    """This function takes as inputs a number d and a function/sequence
+    and returns the first number of the sequence with d divisors"""
+
+    i = 1
+    while True:
+        i += 1
+        divs = divisors(f(i))
+        if len(divs) > d:
+            break
+
+    return f(i)

@@ -50,7 +50,7 @@ print(f'The greatest product of 13 adjacent digits from this large number is {ma
 print(f'The product of a Pythagorean triplet, which add up to 1000, is {a * b * c}.')
 
 # https://projecteuler.net/problem=10   142913828922   It takes about 10 seconds
-#print(f'The sum of all primes below 2 million is {primes_sum(2 * 10 ** 6)}.')
+print(f'The sum of all primes below 2 million is {primes_sum(2 * 10 ** 6)}.')
 
 # https://projecteuler.net/problem=11   70600674
 grid = str("""08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
@@ -74,3 +74,6 @@ grid = str("""08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48""")
 print(f'The greatest product of 4 adjacent numbers in the above grid is {products(listing(grid), 4)}.')
+
+# https://projecteuler.net/problem=12   76576500
+print(f'The first triangle number to have over five hundred divisors is {max_primes(500, lambda x: sum(range(x+1)))}.')
