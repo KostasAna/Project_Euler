@@ -297,3 +297,15 @@ def max_primes(d: int, f: callable) -> int:
             break
 
     return f(i)
+
+
+# https://projecteuler.net/problem=13
+
+def first_digits(num: int, d: int) -> int:
+    """This function returns the first d digits of a number"""
+
+    from math import log10
+    power = int((log10(num)))
+    digits = int(num / (10 ** (power + 1 - d)))
+
+    return digits
