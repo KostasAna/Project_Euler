@@ -1,5 +1,6 @@
 # create a timer decorator
 import time
+import math
 
 
 def timer(function):
@@ -17,42 +18,27 @@ def timer(function):
 # https://projecteuler.net/problem=1
 
 
-def sum_div(x: int, *args) -> int:
+def sum_div(x: int, *args: int) -> int:
     """This function takes all the numbers up to x
     that are divisible by *args and it adds them up"""
 
-    my_sum = 0
-
-    for num in range(x):
-        if any(num % i == 0 for i in args):
-            my_sum += num
-
-    return my_sum
+    return sum(num for num in range(x + 1) if any(num % i == 0 for i in args))
 
 
 # https://projecteuler.net/problem=2
 
 
-def fib_even_sum(x: int) -> int:
-    """This function takes all the even valued Fibonacci numbers
-     smaller than x and adds them up"""
+def fib_sum_div(x: int, *args: int) -> int:
+    """This function takes all Fibonacci numbers that are divisible
+    by *args and smaller than x and adds them up"""
 
-    i = 0
-    a = [1, 1]  # to start the Fibonacci series
-    even = []
+    i, a = 0, [1, 1]  # to start the Fibonacci series
 
-    while True:
+    while a[i + 1] <= x:
         i += 1
-        result = a[i] + a[i - 1]
-        a.append(result)
-        if result >= x:
-            break
-        if result % 2 == 0:
-            even.append(result)
+        a.append(a[i] + a[i - 1])
 
-    k = sum(even)
-
-    return k
+    return sum(fib for fib in a if any(fib % i == 0 for i in args))
 
 
 # https://projecteuler.net/problem=3
@@ -64,7 +50,7 @@ def prime_factors(x: int) -> list:
 
     p_factors = []
 
-    for i in range(2, round((x + 2) / 2)):
+    for i in range(2, round(x ** 0.5 + 1)):
         while x % i == 0:
             p_factors.append(i)
             x = x / i
@@ -84,16 +70,8 @@ def max_pal_num(x: int, y: int) -> int:
     """This function takes a range of values (x, y) in which it finds
     the largest palindromic number of all the products in that range"""
 
-    pal_num = []
-
-    for i in range(x, y):
-        for j in range(x, y):
-            if str(i * j) != str(i * j)[::-1]:
-                continue
-            else:
-                pal_num.append(i * j)
-
-    return max(pal_num)
+    return max(i * j for j in range(x, y) for i in range(x, y)
+               if str(i * j) == str(i * j)[::-1])
 
 
 # https://projecteuler.net/problem=5
@@ -119,16 +97,10 @@ def sum_sum(x: int) -> int:
     """This function calculates the difference between the sum of the squares
     of the first x natural numbers and the square of the sum"""
 
-    ss = 0
-    s = 0
+    ss = sum(i**2 for i in range(x + 1))
+    s = sum(i for i in range(x + 1))
 
-    for num in range(x + 1):
-        s += num
-        ss += num ** 2
-
-    my_sum = s ** 2 - ss
-
-    return my_sum
+    return s ** 2 - ss
 
 
 # https://projecteuler.net/problem=7
@@ -165,17 +137,6 @@ def primes(x: int) -> list:
 # https://projecteuler.net/problem=8
 
 
-def prod(x: int or str) -> int:  # This function is needed within the next one
-    """This function multiplies all digits of a number"""
-
-    product = 1
-
-    for i in str(x):
-        product *= int(i)
-
-    return product
-
-
 def seq_prod(x, y):
     """This function takes all the y adjacent digits of x and
     returns a dictionary with its products"""
@@ -191,8 +152,7 @@ def seq_prod(x, y):
             y_digits.append(str(x)[digit: digit + y])
 
         for adjacent in y_digits:
-            products.append(prod(adjacent))  # function created above
-
+            products.append(math.prod(int(i) for i in str(adjacent)))
         d = dict(zip(y_digits, products))
 
     return d
@@ -223,20 +183,18 @@ for i in range(505, 1000, 5):
 def primes_sum(x: int) -> int:
     """This function adds all the primes below x"""
 
-    p_sum = 2  # the first prime is 2
-    i = 2
-
-    while i < x:
-        i += 1
-        if prime_check(i):  # function from problem 7
-            p_sum += i
+    nums = [i for i in range(2, x+1)]
+    for p in nums[:round(x ** 0.5 + 1)]:
+        if prime_check(p):  # function from problem 7
+            nums = [i for i in nums if i == p or i % p != 0]
         else:
             continue
 
-    return p_sum
+    return sum(nums)
 
 
 # https://projecteuler.net/problem=11
+
 
 def listing(x: str) -> list:
     """This function takes a matrix in string type and
@@ -248,9 +206,7 @@ def listing(x: str) -> list:
     for line in big_list:
         row = line.split(' ')
         row = [int(number) for number in row]
-        matrix.append(row)
-
-    return matrix
+        yield row
 
 
 def products(m: list, n: int) -> int:
@@ -276,13 +232,12 @@ def products(m: list, n: int) -> int:
 
 # https://projecteuler.net/problem=12
 
+
 def divisors(n: int) -> int:
     """This function returns the list of all the factors of a number"""
 
     divs = [i for i in range(1, int(round(n ** 0.5 + 1, 0))) if n % i == 0]
-    divs = divs + [int(n / d) for d in divs[::-1] if n % d == 0]
-
-    return divs
+    return divs + [int(n / d) for d in divs[::-1] if n % d == 0]
 
 
 def max_primes(d: int, f: callable) -> int:
@@ -301,11 +256,53 @@ def max_primes(d: int, f: callable) -> int:
 
 # https://projecteuler.net/problem=13
 
+
 def first_digits(num: int, d: int) -> int:
     """This function returns the first d digits of a number"""
 
-    from math import log10
-    power = int((log10(num)))
-    digits = int(num / (10 ** (power + 1 - d)))
+    power = int((math.log10(num)))
+    return int(num / (10 ** (power + 1 - d)))
 
-    return digits
+
+# https://projecteuler.net/problem=14
+
+
+def collatz(n: int) -> list:
+    """This function produces the Collatz sequence of a number"""
+
+    sequence = [n]
+
+    while sequence[-1] > 1:
+        n = int(n / 2) if n % 2 == 0 else 3 * n + 1
+        sequence.append(n)
+
+    return sequence
+
+
+def max_len(f: callable, n: int) -> int:
+    """This function finds which number up to n produces
+    the longest sequence"""
+
+    d = {i: len(f(i)) for i in range(n)}
+    return max(d, key=d.get)
+
+
+if __name__ == "__main__":
+
+    from large_inputs import *
+    print(
+          sum_div(1000, 3, 5),
+          fib_sum_div(4 * 10 ** 6, 2),
+          prime_factors(600851475143)[-1],
+          max_pal_num(100, 999),
+          div_mul(20),
+          sum_sum(10000),
+          primes(10001)[-1],
+          max(seq_prod(p8, 13).values()),
+          a * b * c,
+          primes_sum(2 * 10 ** 6),
+          products(list(listing(p11)), 4),
+          max_primes(500, lambda x: sum(range(x+1))),
+          first_digits(sum(int(i) for i in p13), 10),
+          max_len(collatz, 10 ** 6)
+        )
