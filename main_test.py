@@ -42,3 +42,6 @@ print(f'The first ten digits of the sum of these numbers are {first_digits(sum(i
 
 # https://projecteuler.net/problem=14   837799
 print(f'The number, under 1 million, that produces the longest Collatz sequence is {max_len(collatz, 10 ** 6)}.')
+
+# https://projecteuler.net/problem=15   137846528820
+print(f'From top left to right bottom, there are exactly {max(pascal_triangle(40))} routes.')

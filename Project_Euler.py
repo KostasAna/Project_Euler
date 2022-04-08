@@ -1,6 +1,8 @@
 # create a timer decorator
 import time
 import math
+import random
+from urllib.parse import _NetlocResultMixinStr
 
 
 def timer(function):
@@ -287,6 +289,29 @@ def max_len(f: callable, n: int) -> int:
     return max(d, key=d.get)
 
 
+# https://projecteuler.net/problem=15
+
+"""The straight forward solution to this problem is 40 choose 20 derived by
+counting binomial coefficients. However, I figured it out using the Pascal's
+triangle so I'm coding this method instead. We have 2-dimensional grid, with
+side of length 20. Therefore we want the largest coefficient of 2*20 Pascal's
+triangle which counts all the paths to reach from the top left corner of the
+square (top of triangle) to the bottom right one (bottom-middle of triangle)"""
+
+
+def pascal_triangle(power: int):
+    """This function returns a list of the coefficients
+    for a specific power using the Pascal's triangle"""
+
+    coef = [1]
+
+    for i in range(power):
+        left, right = [0] + coef, coef + [0]
+        coef = [x + y for x, y in zip(left, right)]
+
+    return coef
+
+
 if __name__ == "__main__":
 
     from large_inputs import *
@@ -304,5 +329,6 @@ if __name__ == "__main__":
           products(list(listing(p11)), 4),
           max_primes(500, lambda x: sum(range(x+1))),
           first_digits(sum(int(i) for i in p13), 10),
-          max_len(collatz, 10 ** 6)
+          max_len(collatz, 10 ** 6),
+          max(pascal_triangle(40))
         )
