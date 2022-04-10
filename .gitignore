@@ -4,6 +4,5 @@
 #Ignored folders
 .idea/
 __pycache__/
-#14
 # #Ignored file containing just large numbers
 # large_inputs.py
