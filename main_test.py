@@ -45,3 +45,6 @@ print(f'The number, under 1 million, that produces the longest Collatz sequence 
 
 # https://projecteuler.net/problem=15   137846528820
 print(f'From top left to right bottom, there are exactly {max(pascal_triangle(40))} routes.')
+
+# https://projecteuler.net/problem=16   1366
+print(f'The sum of the digits of the number 2^1000 is {count_length(2**1000)}.')

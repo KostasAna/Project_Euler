@@ -1,8 +1,6 @@
 # create a timer decorator
 import time
 import math
-import random
-from urllib.parse import _NetlocResultMixinStr
 
 
 def timer(function):
@@ -311,6 +309,14 @@ def pascal_triangle(power: int):
 
     return coef
 
+# https://projecteuler.net/problem=16
+
+
+def count_length(number):
+    """This function calculates the sum of the digits of a number"""
+
+    return sum(int(n) for n in str(number))
+
 
 if __name__ == "__main__":
 
@@ -330,5 +336,6 @@ if __name__ == "__main__":
           max_primes(500, lambda x: sum(range(x+1))),
           first_digits(sum(int(i) for i in p13), 10),
           max_len(collatz, 10 ** 6),
-          max(pascal_triangle(40))
+          max(pascal_triangle(40)),
+          count_length(2**1000)
         )
