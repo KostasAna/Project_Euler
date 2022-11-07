@@ -314,6 +314,7 @@ def pascal_triangle(power: int):
 
 def count_length(number):
     """This function calculates the sum of the digits of a number"""
+    nothing = 0
 
     return sum(int(n) for n in str(number))
 
