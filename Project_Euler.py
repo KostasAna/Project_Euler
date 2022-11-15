@@ -289,6 +289,7 @@ def max_len(f: callable, n: int) -> int:
 
 # https://projecteuler.net/problem=15
 
+
 """The straight forward solution to this problem is 40 choose 20 derived by
 counting binomial coefficients. However, I figured it out using the Pascal's
 triangle so I'm coding this method instead. We have 2-dimensional grid, with
@@ -309,15 +310,47 @@ def pascal_triangle(power: int):
 
     return coef
 
+
 # https://projecteuler.net/problem=16
 
 
 def count_length(number):
     """This function calculates the sum of the digits of a number"""
-    nothing = 0
 
     return sum(int(n) for n in str(number))
 
+
+# https://projecteuler.net/problem=17
+
+
+def letters(number):
+    """This function prints how a number is written"""
+
+    ones = ['', 'One', 'Two', 'Three', 'Four',
+        'Five', 'Six', 'Seven', 'Eight','Nine']
+    teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen',
+        'Fifteen', 'Sixteen', 'Seventeen','Eighteen','Nineteen']
+    tens = ['', teens, 'Twenty', 'Thirty', 'Forty',
+        'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
+    # thousands = ['Thousand', 'Million', 'Billion']
+
+    word = ''
+    remain, number = divmod(number, 1000)
+    if remain == 0:
+        third, number = divmod(number, 100)
+        if third > 0:
+            word += ones[third] + 'Hundred'
+        second, number = divmod(number, 10)
+        if (second != 0 or number != 0) and third > 0:
+            word += 'and'
+        if second != 1:
+            word += tens[second] + ones[number]
+        else:
+            word += tens[second][number]
+    else:
+        word += letters(remain) +'thousand'+ letters(number)
+
+    return word
 
 if __name__ == "__main__":
 
@@ -338,5 +371,6 @@ if __name__ == "__main__":
           first_digits(sum(int(i) for i in p13), 10),
           max_len(collatz, 10 ** 6),
           max(pascal_triangle(40)),
-          count_length(2**1000)
+          count_length(2**1000),
+          sum(len(letters(i)) for i in range(1, 1001))
         )

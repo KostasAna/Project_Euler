@@ -48,3 +48,6 @@ print(f'From top left to right bottom, there are exactly {max(pascal_triangle(40
 
 # https://projecteuler.net/problem=16   1366
 print(f'The sum of the digits of the number 2^1000 is {count_length(2**1000)}.')
+
+# https://projecteuler.net/problem=17   21124
+print(f'There are {sum(len(letters(i)) for i in range(1, 1001))} letters used to write all the numbers from 1 to 1000.')
