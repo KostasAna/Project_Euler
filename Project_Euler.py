@@ -183,7 +183,7 @@ for i in range(505, 1000, 5):
 def primes_sum(x: int) -> int:
     """This function adds all the primes below x"""
 
-    nums = [i for i in range(2, x+1)]
+    nums = list(range(2, x+1))
     for p in nums[:round(x ** 0.5 + 1)]:
         if prime_check(p):  # function from problem 7
             nums = [i for i in nums if i == p or i % p != 0]
@@ -201,7 +201,6 @@ def listing(x: str) -> list:
     returns it as a list of lists"""
 
     big_list = x.split('\n')
-    matrix = []
 
     for line in big_list:
         row = line.split(' ')
@@ -332,11 +331,20 @@ def letters(number):
         'Fifteen', 'Sixteen', 'Seventeen','Eighteen','Nineteen']
     tens = ['', teens, 'Twenty', 'Thirty', 'Forty',
         'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
-    # thousands = ['Thousand', 'Million', 'Billion']
+    thousands = ['', 'Thousand', 'Million', 'Billion', 'Trillion']
+
+    grouped = []
+    while True:
+        remain, number = divmod(number, 1000)
+        grouped.append(number)
+        number = remain
+        if len(str(remain)) <= 3:
+            if remain != 0:
+                grouped.append(remain)
+            break
 
     word = ''
-    remain, number = divmod(number, 1000)
-    if remain == 0:
+    for th, number in enumerate(grouped[::-1]):
         third, number = divmod(number, 100)
         if third > 0:
             word += ones[third] + 'Hundred'
@@ -347,10 +355,10 @@ def letters(number):
             word += tens[second] + ones[number]
         else:
             word += tens[second][number]
-    else:
-        word += letters(remain) +'thousand'+ letters(number)
+        word += thousands[len(grouped) - th - 1]
 
     return word
+
 
 if __name__ == "__main__":
 
