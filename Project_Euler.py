@@ -197,8 +197,8 @@ def primes_sum(x: int) -> int:
 
 
 def listing(x: str) -> list:
-    """This function takes a matrix in string type and
-    returns it as a list of lists"""
+    """This function takes a matrix in string type and returns it as a list of
+    lists. It can be used also for triangles formats (problems 18 and 67)"""
 
     big_list = x.split('\n')
 
@@ -212,17 +212,14 @@ def products(m: list, n: int) -> int:
     """This funcion takes a matrix and returns the greatest product
     of n adjacent numbers in any direction"""
 
-    x = len(m)  # how many rows the matrix has
-    y = len(m[0])  # how many columns the matrix has
-
     alln = []
 
-    for i in range(x):
-        for j in range(0, y-n+1):
+    for i in range(len(m)):
+        for j in range(0, len(m[0])-n+1):
             alln.append(m[i][j]*m[i][j+1]*m[i][j+2]*m[i][j+3])
             alln.append(m[j][i]*m[j+1][i]*m[j+2][i]*m[j+3][i])
 
-            if i <= (x-n):  # diagonals
+            if i <= (len(m)-n):  # diagonals
                 alln.append(m[i][j]*m[i+1][j+1]*m[i+2][j+2]*m[i+3][j+3])
                 alln.append(m[i][j+3]*m[i+1][j+2]*m[i+2][j+1]*m[i+3][j])
 
@@ -360,9 +357,24 @@ def letters(number):
     return word
 
 
+# https://projecteuler.net/problem=18
+
+
+def max_paths(routes: list) -> list:
+    """This funcion takes a matrix and returns
+    the maximum total from top to bottom"""
+
+    for i, row in enumerate(routes[:0:-1]):
+        for j, col in enumerate(row[:-1]):
+            routes[-i-2][j] = max(row[j] + routes[-i-2][j],
+                                  row[j+1] + routes[-i-2][j])
+
+    return routes[0]
+
+
 if __name__ == "__main__":
 
-    from large_inputs import *
+    import large_inputs
     print(
           sum_div(1000, 3, 5),
           fib_sum_div(4 * 10 ** 6, 2),
@@ -371,14 +383,16 @@ if __name__ == "__main__":
           div_mul(20),
           sum_sum(10000),
           primes(10001)[-1],
-          max(seq_prod(p8, 13).values()),
+          max(seq_prod(large_inputs.p8, 13).values()),
           a * b * c,
           primes_sum(2 * 10 ** 6),
-          products(list(listing(p11)), 4),
+          products(list(listing(large_inputs.p11)), 4),
           max_primes(500, lambda x: sum(range(x+1))),
-          first_digits(sum(int(i) for i in p13), 10),
+          first_digits(sum(int(i) for i in large_inputs.p13), 10),
           max_len(collatz, 10 ** 6),
           max(pascal_triangle(40)),
           count_length(2**1000),
-          sum(len(letters(i)) for i in range(1, 1001))
+          sum(len(letters(i)) for i in range(1, 1001)),
+          max_paths(list(listing(large_inputs.p18)))[0],
+          max_paths(list(listing(large_inputs.p67)))[0]
         )

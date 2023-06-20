@@ -51,3 +51,9 @@ print(f'The sum of the digits of the number 2^1000 is {count_length(2**1000)}.')
 
 # https://projecteuler.net/problem=17   21124
 print(f'There are {sum(len(letters(i)) for i in range(1, 1001))} letters used to write all the numbers from 1 to 1000.')
+
+# https://projecteuler.net/problem=18   1074
+print(f'The maximum total from top to bottom of this triangle is {max_paths(list(listing(p18)))[0]}.')
+
+# https://projecteuler.net/problem=18   7273
+print(f'The maximum total from top to bottom of this triangle is {max_paths(list(listing(p67)))[0]}.')
