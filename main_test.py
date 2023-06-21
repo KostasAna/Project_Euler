@@ -55,5 +55,11 @@ print(f'There are {sum(len(letters(i)) for i in range(1, 1001))} letters used to
 # https://projecteuler.net/problem=18   1074
 print(f'The maximum total from top to bottom of this triangle is {max_paths(list(listing(p18)))[0]}.')
 
-# https://projecteuler.net/problem=18   7273
+# https://projecteuler.net/problem=20   648
+print(f'The sum of the digits in the number 100! is {count_length(factorial(100))}.')
+
+# https://projecteuler.net/problem=21   31626
+print(f'The sum of all the amicable numbers under 10000 is {sum(amicable_numbers(10000))}.')
+
+# https://projecteuler.net/problem=67   7273
 print(f'The maximum total from top to bottom of this triangle is {max_paths(list(listing(p67)))[0]}.')

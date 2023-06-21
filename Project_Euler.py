@@ -372,6 +372,41 @@ def max_paths(routes: list) -> list:
     return routes[0]
 
 
+# https://projecteuler.net/problem=20
+
+
+def factorial(number: int) -> int:
+    """This function calculates the n factorial"""
+
+    if number > 2:
+        n, f = 1, 1
+        while n < number:
+            f *= n
+            n += 1
+        return f
+    else:
+        return number
+
+"""Then use function from problem 16."""
+
+
+# https://projecteuler.net/problem=21
+
+
+def amicable_numbers(number: int) -> dict:
+    """This functions finds all amicable numbers up to a number.
+    They are presented in a dictionary format as a form of proof"""
+
+    divs_sum = {n : sum(divisors(n)[:-1]) for n in range(1, number) if
+                    len(divisors(n)) > 2} # get rid of n itself and all primes
+
+    amicables = {key: value for key, value in divs_sum.items() if key in
+        divs_sum.values() and value in divs_sum and divs_sum[value] == key}
+    amicables = {key: value for key, value in amicables.items()
+                if key != value} # to delete all perfect numbers
+
+    return amicables
+
 if __name__ == "__main__":
 
     import large_inputs
@@ -394,5 +429,7 @@ if __name__ == "__main__":
           count_length(2**1000),
           sum(len(letters(i)) for i in range(1, 1001)),
           max_paths(list(listing(large_inputs.p18)))[0],
-          max_paths(list(listing(large_inputs.p67)))[0]
+          count_length(factorial(100)),
+          sum(amicable_numbers(10000)),
+          max_paths(list(listing(large_inputs.p67)))[0],
         )
