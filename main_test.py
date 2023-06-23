@@ -2,19 +2,19 @@ from Project_Euler import *
 from large_inputs import *
 
 # https://projecteuler.net/problem=1   233168
-print(f'The sum of all the numbers up to 1000 divisible by 3 and 5 is {sum_div(1000, 3, 5):d}.')
+print(f'The sum of all the numbers up to 1000 divisible by 3 and 5 is {sum_div(range(1000), 3, 5)}.')
 
 # https://projecteuler.net/problem=2   4613732
-print(f'The sum of the even-valued Fibonacci numbers smaller than 4 million is {fib_sum_div(4 * 10 ** 6, 2):d}.')
+print(f'The sum of the even-valued Fibonacci numbers smaller than 4 million is {sum_div(fibonacci_numbers(lambda x: x < 4 * 10 ** 6), 2)}.')
 
 # https://projecteuler.net/problem=3   6857
-print(f'The largest prime factor of 600851475143 is {prime_factors(600851475143)[-1]:d}.')
+print(f'The largest prime factor of 600851475143 is {prime_factors(600851475143)[-1]}.')
 
 # https://projecteuler.net/problem=4   906609
-print(f'The largest palindromic number made from the product of two 3-digit numbers is {max_pal_num(100, 999):d}.')
+print(f'The largest palindromic number made from the product of two 3-digit numbers is {max_pal_num(100, 999)}.')
 
 # https://projecteuler.net/problem=5   232792560
-print(f'The smallest positive number that is evenly divisible by all of the numbers up to 20 is {div_mul(20):d}.')
+print(f'The smallest positive number that is evenly divisible by all of the numbers up to 20 is {div_mul(20)}.')
 
 # https://projecteuler.net/problem=6   25164150
 print(f'The square of the sums minus the sum of squares up to 100 is {sum_sum(100)}.')
@@ -23,7 +23,7 @@ print(f'The square of the sums minus the sum of squares up to 100 is {sum_sum(10
 print(f'The 10001st prime is {primes(10001)[-1]}.')
 
 # https://projecteuler.net/problem=8   23514624000
-print(f'The greatest product of 13 adjacent digits from this large number is {max(seq_prod(p8, 13).values()):d}.')
+print(f'The greatest product of 13 adjacent digits from this large number is {max(seq_prod(p8, 13).values())}.')
 
 # https://projecteuler.net/problem=9   31875000
 print(f'The product of a Pythagorean triplet, which add up to 1000, is {a * b * c}.')
@@ -60,6 +60,9 @@ print(f'The sum of the digits in the number 100! is {count_length(factorial(100)
 
 # https://projecteuler.net/problem=21   31626
 print(f'The sum of all the amicable numbers under 10000 is {sum(amicable_numbers(10000))}.')
+
+# https://projecteuler.net/problem=25   4782
+print(f'the index of the first term in the Fibonacci sequence to contain 1000 digits is {len(fibonacci_numbers(lambda x: len(str(x)) < 1000))}.')
 
 # https://projecteuler.net/problem=67   7273
 print(f'The maximum total from top to bottom of this triangle is {max_paths(list(listing(p67)))[0]}.')

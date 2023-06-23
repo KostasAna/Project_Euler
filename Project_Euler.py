@@ -15,30 +15,31 @@ def timer(function):
 
     return wrapper
 
+
 # https://projecteuler.net/problem=1
 
 
-def sum_div(x: int, *args: int) -> int:
-    """This function takes all the numbers up to x
+def sum_div(numbers: range, *args: int) -> int:
+    """This function takes all the numbers up to provided
     that are divisible by *args and it adds them up"""
 
-    return sum(num for num in range(x + 1) if any(num % i == 0 for i in args))
+    return sum(num for num in numbers if any(num % i == 0 for i in args))
 
 
 # https://projecteuler.net/problem=2
 
 
-def fib_sum_div(x: int, *args: int) -> int:
-    """This function takes all Fibonacci numbers that are divisible
-    by *args and smaller than x and adds them up"""
+def fibonacci_numbers(limit: bool) -> list:
+    """This function produces all Fibonacci numbers
+    up to the limit specified for the last term"""
 
-    i, a = 0, [1, 1]  # to start the Fibonacci series
+    i, fibs = 0, [1, 1]  # to start the Fibonacci series
 
-    while a[i + 1] <= x:
+    while limit(fibs[i + 1]):
         i += 1
-        a.append(a[i] + a[i - 1])
+        fibs.append(fibs[i] + fibs[i - 1])
 
-    return sum(fib for fib in a if any(fib % i == 0 for i in args))
+    return fibs
 
 
 # https://projecteuler.net/problem=3
@@ -401,18 +402,24 @@ def amicable_numbers(number: int) -> dict:
                     len(divisors(n)) > 2} # get rid of n itself and all primes
 
     amicables = {key: value for key, value in divs_sum.items() if key in
-        divs_sum.values() and value in divs_sum and divs_sum[value] == key}
-    amicables = {key: value for key, value in amicables.items()
-                if key != value} # to delete all perfect numbers
+                divs_sum.values() and value in divs_sum and divs_sum[value] ==
+                key and key != value} # to exlude all perfect numbers
 
     return amicables
+
+
+# https://projecteuler.net/problem=25
+
+
+"""We can just use the function from problem 2."""
+
 
 if __name__ == "__main__":
 
     import large_inputs
     print(
-          sum_div(1000, 3, 5),
-          fib_sum_div(4 * 10 ** 6, 2),
+          sum_div(range(1000), 3, 5),
+          sum_div(fibonacci_numbers(lambda x: x < 4 * 10 ** 6), 2),
           prime_factors(600851475143)[-1],
           max_pal_num(100, 999),
           div_mul(20),
@@ -431,5 +438,6 @@ if __name__ == "__main__":
           max_paths(list(listing(large_inputs.p18)))[0],
           count_length(factorial(100)),
           sum(amicable_numbers(10000)),
+          len(fibonacci_numbers(lambda x: len(str(x)) < 1000)),
           max_paths(list(listing(large_inputs.p67)))[0],
         )
