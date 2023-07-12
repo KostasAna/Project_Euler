@@ -44,7 +44,7 @@ print(f'The first triangle number to have over five hundred divisors is {project
 print(f'The first ten digits of the sum of these numbers are {project_euler.first_digits(sum(int(i) for i in large_inputs.P13), 10)}.')
 
 # https://projecteuler.net/problem=14   837799
-print(f'The number, under 1 million, that produces the longest Collatz sequence is {project_euler.max_len(project_euler.collatz, 10 ** 6)}.')
+print(f'The number, under 1 million, that produces the longest Collatz sequence is {project_euler.greatest_length(project_euler.collatz_seq(10 ** 6))}.')
 
 # https://projecteuler.net/problem=15   137846528820
 print(f'From top left to right bottom, there are exactly {max(project_euler.pascal_triangle(40))} routes.')

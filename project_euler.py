@@ -263,23 +263,31 @@ def first_digits(num: int, dig: int) -> int:
 # https://projecteuler.net/problem=14
 
 
-def collatz(number: int) -> list:
-    """This function produces the Collatz sequence of a number."""
+def collatz_seq(limit: int) -> dict:
+    """This function produces all Collatz sequences for all numbers up to
+    a certain limit. Each sequence is stored as a list in a dictionary."""
 
-    sequence = [number]
+    collatzs = {}
 
-    while sequence[-1] > 1:
-        number = int(number / 2) if number % 2 == 0 else 3 * number + 1
-        sequence.append(number)
+    for number in range(2, limit):
+        collatzs[number] = [number]
+        num = number
+        while collatzs[number][-1] > 1:
+            if collatzs[number][-1] in collatzs and len(collatzs[number]) > 1:
+                collatzs[number] = collatzs[number] + collatzs[num]
+                break # to avoid recalculating a known subsequence
+            num = int(num / 2) if num % 2 == 0 else 3 * num + 1
+            collatzs[number].append(num)
+        collatzs[number].pop(0)
 
-    return sequence
+    return collatzs
 
 
-def max_len(func: callable, limit: int) -> int:
-    """This function finds which number up to a limit produces
-    the longest sequence"""
+def greatest_length(inputs: dict) -> int:
+    """This function finds which number produces the longest sequence."""
 
-    outputs = {i: len(func(i)) for i in range(limit)}
+    outputs = {key: len(value) for key, value in inputs.items()}
+
     return max(outputs, key=outputs.get)
 
 
@@ -418,7 +426,7 @@ if __name__ == "__main__":
           products(list(listing(large_inputs.P11)), 4),
           max_primes(500, lambda x: sum(range(x+1))),
           first_digits(sum(int(i) for i in large_inputs.P13), 10),
-          max_len(collatz, 10 ** 6),
+          greatest_length(collatz_seq(10 ** 6)),
           max(pascal_triangle(40)),
           count_length(2**1000),
           sum(len(letters(i)) for i in range(1, 1001)),
