@@ -1,6 +1,7 @@
 """Module for all the functions needed."""
 import time
 import math
+import datetime
 
 
 def timer(function):
@@ -380,6 +381,26 @@ def max_paths(routes: list) -> list:
     return routes[0]
 
 
+# https://projecteuler.net/problem=19
+
+
+def count_days(start_date: tuple, end_date: tuple) -> int:
+    """This function counts how many Sundays fall on the first of the month
+    for a given period of time. The input start and end dates should be in
+    the format accepted by datetime (yyyy, mm, dd)."""
+
+    start, end = datetime.date(*start_date), datetime.date(*end_date)
+    dtime = datetime.timedelta(days = 1)
+
+    days = 0
+    while start <= end:
+        if start.day == 1 and start.weekday() == 6 :
+            days += 1
+        start += dtime
+
+    return days
+
+
 # https://projecteuler.net/problem=20
 
 
@@ -431,8 +452,10 @@ if __name__ == "__main__":
           count_length(2**1000),
           sum(len(letters(i)) for i in range(1, 1001)),
           max_paths(list(listing(large_inputs.P18)))[0],
+          count_days((1901, 1, 1), (2000, 12, 31)),
           count_length(math.factorial(100)),
           sum(amicable_numbers(10000)),
           len(fibonacci_numbers(lambda x: len(str(x)) < 1000)),
           max_paths(list(listing(large_inputs.P67)))[0],
         )
+    

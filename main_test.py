@@ -58,6 +58,9 @@ print(f'There are {sum(len(project_euler.letters(i)) for i in range(1, 1001))} l
 # https://projecteuler.net/problem=18   1074
 print(f'The maximum total from top to bottom of this triangle is {project_euler.max_paths(list(project_euler.listing(large_inputs.P18)))[0]}.')
 
+# https://projecteuler.net/problem=19   171
+print(f'There are {project_euler.count_days((1901, 1, 1), (2000, 12, 31))} Sundays that fall on the first of the month during the twentieth century.')
+
 # https://projecteuler.net/problem=20   648
 print(f'The sum of the digits in the number 100! is {project_euler.count_length(math.factorial(100))}.')
 
