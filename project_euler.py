@@ -424,38 +424,52 @@ def amicable_numbers(number: int) -> dict:
     return amicables
 
 
+# https://projecteuler.net/problem=22
+
+
+def sort_n_count(names: list) -> dict:
+    """This function sorts names in alphabetical order and it calculates their
+    scores (alphabetical position times the sum of alphabetical values)"""
+
+    names = sorted(names)
+    scores = {n: (names.index(n) + 1) * sum(ord(l.lower()) - 96
+                for l in n) for n in names}
+
+    return scores
+
+
 # https://projecteuler.net/problem=25
 
 
- # We can just use the function from problem 2.
+# We can just use the function from problem 2.
 
 
 if __name__ == "__main__":
 
     import large_inputs
     print(
-          sum_div(range(1000), 3, 5),
-          sum_div(fibonacci_numbers(lambda x: x < 4 * 10 ** 6), 2),
-          prime_factors(600851475143)[-1],
-          max_pal_num(100, 999),
-          div_mul(20),
-          sum_sum(10000),
-          primes(10001)[-1],
-          max(seq_prod(large_inputs.P8, 13).values()),
-          a * b * c,
-          primes_sum(2 * 10 ** 6),
-          products(list(listing(large_inputs.P11)), 4),
-          max_primes(500, lambda x: sum(range(x+1))),
-          first_digits(sum(int(i) for i in large_inputs.P13), 10),
-          greatest_length(collatz_seq(10 ** 6)),
-          max(pascal_triangle(40)),
-          count_length(2**1000),
-          sum(len(letters(i)) for i in range(1, 1001)),
-          max_paths(list(listing(large_inputs.P18)))[0],
-          count_days((1901, 1, 1), (2000, 12, 31)),
-          count_length(math.factorial(100)),
-          sum(amicable_numbers(10000)),
-          len(fibonacci_numbers(lambda x: len(str(x)) < 1000)),
-          max_paths(list(listing(large_inputs.P67)))[0],
+          sum_div(range(1000), 3, 5), #1
+          sum_div(fibonacci_numbers(lambda x: x < 4 * 10 ** 6), 2), #2
+          prime_factors(600851475143)[-1], #3
+          max_pal_num(100, 999), #4
+          div_mul(20), #5
+          sum_sum(10000), #6
+          primes(10001)[-1], #7
+          max(seq_prod(large_inputs.P8, 13).values()), #8
+          a * b * c, #9
+          primes_sum(2 * 10 ** 6), #10
+          products(list(listing(large_inputs.P11)), 4), #11
+          max_primes(500, lambda x: sum(range(x+1))), #12
+          first_digits(sum(int(i) for i in large_inputs.P13), 10), #13
+          greatest_length(collatz_seq(10 ** 6)), #14
+          max(pascal_triangle(40)), #15
+          count_length(2**1000), #16
+          sum(len(letters(i)) for i in range(1, 1001)), #17
+          max_paths(list(listing(large_inputs.P18)))[0], #18
+          count_days((1901, 1, 1), (2000, 12, 31)), #19
+          count_length(math.factorial(100)), #20
+          sum(amicable_numbers(10000)), #21
+          sum(sort_n_count(large_inputs.P22).values()), #22
+          len(fibonacci_numbers(lambda x: len(str(x)) < 1000)), #25
+          max_paths(list(listing(large_inputs.P67)))[0], #67
         )
-    

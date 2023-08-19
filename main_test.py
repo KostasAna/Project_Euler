@@ -67,8 +67,11 @@ print(f'The sum of the digits in the number 100! is {project_euler.count_length(
 # https://projecteuler.net/problem=21   31626
 print(f'The sum of all the amicable numbers under 10000 is {sum(project_euler.amicable_numbers(10000))}.')
 
+#https://projecteuler.net/problem=22   871198282
+print(f'The total score of all names in the names text file is {sum(project_euler.sort_n_count(large_inputs.P22).values())}.')
+
 # https://projecteuler.net/problem=25   4782
-print(f'the index of the first term in the Fibonacci sequence to contain 1000 digits is {len(project_euler.fibonacci_numbers(lambda x: len(str(x)) < 1000))}.')
+print(f'The index of the first term in the Fibonacci sequence to contain 1000 digits is {len(project_euler.fibonacci_numbers(lambda x: len(str(x)) < 1000))}.')
 
 # https://projecteuler.net/problem=67   7273
 print(f'The maximum total from top to bottom of this triangle is {project_euler.max_paths(list(project_euler.listing(large_inputs.P67)))[0]}.')
