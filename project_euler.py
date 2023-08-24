@@ -235,8 +235,9 @@ def divisors(number: int) -> int:
 
     divs = [i for i in range(1, int(round(number ** 0.5 + 1, 0)))
             if number % i == 0]
-    return divs + [int(number / d) for d in divs[::-1] if number % d == 0]
+    divs = divs + [int(number / d) for d in divs[::-1] if number % d == 0]
 
+    return sorted(set(divs)) # for perfect squares, remove duplicate root
 
 def max_primes(divs: int, func: callable) -> int:
     """This function takes as inputs a number and a function/sequence and
@@ -438,6 +439,19 @@ def sort_n_count(names: list) -> dict:
     return scores
 
 
+# https://projecteuler.net/problem=23
+
+
+def non_abundant_sums(limit: int) -> dict:
+    """This function calculates the sum of all numbers up
+    to a limit that are not a sum of 2 abundant numbers."""
+
+    abundants = set(n for n in range(1, limit) if sum(divisors(n)[:-1]) > n)
+
+    return sum(num for num in range(1, limit) if not any(num - abuns
+                in abundants for abuns in abundants))
+
+
 # https://projecteuler.net/problem=25
 
 
@@ -470,6 +484,7 @@ if __name__ == "__main__":
           count_length(math.factorial(100)), #20
           sum(amicable_numbers(10000)), #21
           sum(sort_n_count(large_inputs.P22).values()), #22
+          non_abundant_sums(28123), #23
           len(fibonacci_numbers(lambda x: len(str(x)) < 1000)), #25
           max_paths(list(listing(large_inputs.P67)))[0], #67
         )

@@ -70,6 +70,9 @@ print(f'The sum of all the amicable numbers under 10000 is {sum(project_euler.am
 #https://projecteuler.net/problem=22   871198282
 print(f'The total score of all names in the names text file is {sum(project_euler.sort_n_count(large_inputs.P22).values())}.')
 
+#https://projecteuler.net/problem=23   4179871
+print(f'The sum of all the positive integers which cannot be written as the sum of two abundant numbers is {project_euler.non_abundant_sums(28123)}.')
+
 # https://projecteuler.net/problem=25   4782
 print(f'The index of the first term in the Fibonacci sequence to contain 1000 digits is {len(project_euler.fibonacci_numbers(lambda x: len(str(x)) < 1000))}.')
 
