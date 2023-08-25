@@ -452,6 +452,32 @@ def non_abundant_sums(limit: int) -> dict:
                 in abundants for abuns in abundants))
 
 
+# https://projecteuler.net/problem=24
+
+
+def nth_permutation(string: list, perm: int) -> str:
+    """This function finds the a specific
+    permutation of a list of digits."""
+
+    if perm > math.factorial(len(string)):
+        return 'Exceeds the total number of permutations.'
+
+    limit, permutation, result = perm - 1, [], ''
+
+    for i in string:
+        perm_i = 0
+        while limit >= math.factorial(len(string) - 1 - i):
+            limit = limit - math.factorial(len(string) - 1 - i)
+            perm_i += 1
+        permutation.append(perm_i)
+
+    for i in permutation:
+        result += str(string[i])
+        del string[i]
+
+    return result
+
+
 # https://projecteuler.net/problem=25
 
 
@@ -485,6 +511,7 @@ if __name__ == "__main__":
           sum(amicable_numbers(10000)), #21
           sum(sort_n_count(large_inputs.P22).values()), #22
           non_abundant_sums(28123), #23
+          nth_permutation(list(range(10)), 10 ** 6), #24
           len(fibonacci_numbers(lambda x: len(str(x)) < 1000)), #25
           max_paths(list(listing(large_inputs.P67)))[0], #67
         )
