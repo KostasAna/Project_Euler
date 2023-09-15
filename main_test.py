@@ -79,5 +79,8 @@ print(f'The millionth lexicographic permutation of the digits 0 to 9 is {project
 # https://projecteuler.net/problem=25   4782
 print(f'The index of the first term in the Fibonacci sequence to contain 1000 digits is {len(project_euler.fibonacci_numbers(lambda x: len(str(x)) < 1000))}.')
 
+# https://projecteuler.net/problem=26   983
+print(f'The number under 1000 which contains the longest recurring cycle in its decimal unit fraction part is {max(i for i in range(1000) if project_euler.reptend_check(i))}.')
+
 # https://projecteuler.net/problem=67   7273
 print(f'The maximum total from top to bottom of this triangle is {project_euler.max_paths(list(project_euler.listing(large_inputs.P67)))[0]}.')

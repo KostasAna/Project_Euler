@@ -99,7 +99,7 @@ def sum_sum(numbers: int) -> int:
     """This function calculates the difference between the sum of the squares
     of the first natural specified numbers and the square of the sum."""
 
-    return sum(i for i in range(numbers + 1)) **2 - sum(i**2
+    return sum(i for i in range(numbers + 1)) ** 2 - sum(i ** 2
             for i in range(numbers + 1))
 
 
@@ -166,14 +166,18 @@ def seq_prod(large_number: str, adj: int):
 # (2) & (3) => a^2 + b^2 = 10^6 + a^2 + b^2 - 2000*a -2000*b + 2*a*b
 # <=> 0 = 5*10^5 - 1000(a + b) + ab <=> 0 = 5*10^5 + a(b - 1000) - 1000*b
 # <=> 0 = a(b - 1000) - 1000(b - 500) <=> 5*10^5 = (b - 1000)(a - 1000) (4)
-# (1) & (4) => 0 < a < b < 500 <=> -1000 < a - 1000 < b - 1000 < -500
+# (1) & (4) => 0 < a < b < 500 <=> -1000 < a - 1000 < b - 1000 < -500 (5)
 # At this point is quite fast and easy to do an exhaustive search.
+# Or we can use number theory and prime factorization:
+# (4) => (a - 1000)(b - 1000) = (2^5)*(5*6) = (2^n)*(5*m)*(2^(5-n))*(5*(6-m))
+# and from (5) => -(2^3)*(5^3) < a - 1000 < b - 1000 < -(2^2)*(5^3)
+# which can only be satisfied for n=5 & m=2 => a = 200, b = 375 and c = 425
 
 for fives in range(505, 1000, 5):
     for teners in range(1000, 500, -10):
         if fives * teners == 5 * 10 ** 5:
-            a = 1000 - fives
-            b = 1000 - teners
+            a = 1000 - teners
+            b = 1000 - fives
             c = 1000 - a - b
 
 
@@ -456,8 +460,7 @@ def non_abundant_sums(limit: int) -> dict:
 
 
 def nth_permutation(string: list, perm: int) -> str:
-    """This function finds the a specific
-    permutation of a list of digits."""
+    """This function finds a specific permutation of a list of digits."""
 
     if perm > math.factorial(len(string)):
         return 'Exceeds the total number of permutations.'
@@ -465,10 +468,7 @@ def nth_permutation(string: list, perm: int) -> str:
     limit, permutation, result = perm - 1, [], ''
 
     for i in string:
-        perm_i = 0
-        while limit >= math.factorial(len(string) - 1 - i):
-            limit = limit - math.factorial(len(string) - 1 - i)
-            perm_i += 1
+        perm_i, limit = divmod(limit, math.factorial(len(string) - 1 - i))
         permutation.append(perm_i)
 
     for i in permutation:
@@ -482,6 +482,23 @@ def nth_permutation(string: list, perm: int) -> str:
 
 
 # We can just use the function from problem 2.
+
+
+# https://projecteuler.net/problem=26
+
+
+# The computational time of the algorithm in this function grows exponentially
+# but it is still quite fast for up to 1000. For larger inputs like 10000 or
+# more a more efficient algorithm is needed.
+
+
+def reptend_check(number):
+    """This functions checks whether a number is full reptend prime."""
+
+    if prime_check(number):
+        field = [10 ** i % number for i in range(1, number)]
+        return len(set(field)) == number - 1
+    return None
 
 
 if __name__ == "__main__":
@@ -513,5 +530,6 @@ if __name__ == "__main__":
           non_abundant_sums(28123), #23
           nth_permutation(list(range(10)), 10 ** 6), #24
           len(fibonacci_numbers(lambda x: len(str(x)) < 1000)), #25
+          max(i for i in range(1000) if reptend_check(i)), #26
           max_paths(list(listing(large_inputs.P67)))[0], #67
         )
