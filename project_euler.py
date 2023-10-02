@@ -501,6 +501,53 @@ def reptend_check(number):
     return None
 
 
+# https://projecteuler.net/problem=27
+
+
+def polynomial(coefficients: list) -> callable:
+    """This function creates a polynomial equation with degree depending
+    on the number of coefficients (i.e. 4 coefficients -> 3rd degree) and
+    has the form: c0 * x^n + c1 * x^(n-1) + etc. It can also evaluate it
+    for a given value."""
+
+    def calculate(value: int) -> int:
+        return sum(coef * value ** (len(coefficients) - 1 - n)
+                    for n, coef in enumerate(coefficients))
+
+    return calculate
+
+
+def eulers_quadratic(coef1, coef2):
+    """This function checks for quadratic polynomials of the form
+    x^2 + ax + b whether they are prime generating (i.e. if they can
+    generate multiple consecutive primes)."""
+
+    formula = polynomial([1, coef1, coef2])
+    i = 0
+    while True:
+        val = formula(i)
+        if not prime_check(val):
+            break
+        i += 1
+
+    return i, val
+
+
+def quadratic_prime_sequence(limit):
+    """This function generates pairs of coprime numbers up to a certain
+    limit to be tested for prime generating quadratic polynomials. It
+    return the polynomial with the largest consecutive sequence"""
+
+    coprimes = [((i, j), (-i, j)) for i in range(1, limit) for j in
+                range(i + 1, limit) if math.gcd(i, j) == 1]
+    coprimes = [pair for double in coprimes for pair in double]
+
+    quads = {k: eulers_quadratic(k[0], k[1]) for k in coprimes}
+    max_seq = max(quads.values())
+
+    return [k for k, v in quads.items() if v == max_seq][0]
+
+
 if __name__ == "__main__":
 
     import large_inputs
@@ -531,5 +578,6 @@ if __name__ == "__main__":
           nth_permutation(list(range(10)), 10 ** 6), #24
           len(fibonacci_numbers(lambda x: len(str(x)) < 1000)), #25
           max(i for i in range(1000) if reptend_check(i)), #26
+          math.prod(quadratic_prime_sequence(1000)), #27
           max_paths(list(listing(large_inputs.P67)))[0], #67
         )

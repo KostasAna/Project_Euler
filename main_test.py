@@ -82,5 +82,8 @@ print(f'The index of the first term in the Fibonacci sequence to contain 1000 di
 # https://projecteuler.net/problem=26   983
 print(f'The number under 1000 which contains the longest recurring cycle in its decimal unit fraction part is {max(i for i in range(1000) if project_euler.reptend_check(i))}.')
 
+# https://projecteuler.net/problem=27   -59231
+print(f'The product of the coefficients for the quadratic expression that produces the maximum number of primes for consecutive values is {math.prod(project_euler.quadratic_prime_sequence(1000))}.')
+
 # https://projecteuler.net/problem=67   7273
 print(f'The maximum total from top to bottom of this triangle is {project_euler.max_paths(list(project_euler.listing(large_inputs.P67)))[0]}.')
